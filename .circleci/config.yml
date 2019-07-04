@@ -85,14 +85,13 @@ jobs:
       - run:
           name: Run tests
           #command: cd build && make -j4 test
-          command: cd build && ulimit -c unlimited && make -j4 test
+          command: cd build && ulimit -c unlimited && ARGS='-R UREConfigUTest' make -j4 test
       - run:
           name: Copy core dumps
           command: |
             mkdir -p /tmp/core_dumps
-            ls
-            ls build
-            cp build/core.* /tmp/core_dumps
+            find build -name core.*
+            find build -name core.* | xargs cp -t /tmp/core_dumps
           when: on_fail
       - store_artifacts:
           path: /tmp/core_dumps
