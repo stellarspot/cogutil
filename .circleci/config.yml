@@ -25,7 +25,7 @@ jobs:
       #      - ccache-
       - run:
           name: CMake Configure
-          command: mkdir build && cd build && cmake ..
+          command: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug ..
       - run:
           name: Build
           command: cd build && make -j4
@@ -72,7 +72,7 @@ jobs:
           command: pwd && git branch
       - run:
           name: CMake Configure
-          command: mkdir build && cd build && cmake ..
+          command: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug ..
       - run:
           name: Build
           command: cd build && make -j4
