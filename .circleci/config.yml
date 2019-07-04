@@ -9,7 +9,13 @@ jobs:
           CCACHE_DIR: /ws/ccache
     working_directory: /ws/cogutil
     steps:
-      - checkout
+      # - checkout
+      - run:
+          name: Checkout CogUtil branch
+          command: cd /ws && git clone --single-branch --branch merge-from-opencog-to-singnet https://github.com/stellarspot/cogutil.git
+      - run:
+          name: Check current branch
+          command: pwd && git branch
       - run:
           name: Start restoring ccache
           command: date +%d-%m-%Y > /tmp/date
@@ -59,7 +65,11 @@ jobs:
           command: cd /ws/cogutil/build && make -j4 install && ldconfig
       - run:
           name: Clone AtomSpace
-          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/atomspace .
+          # command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/atomspace .
+          command: cd /ws && git clone --single-branch --branch merge-second-way-opencog-to-singnet-fix-tests https://github.com/stellarspot/atomspace.git
+      - run:
+          name: Check current branch
+          command: pwd && git branch
       - run:
           name: CMake Configure
           command: mkdir build && cd build && cmake ..
@@ -172,7 +182,11 @@ jobs:
           command: cd /ws/atomspace/build && make -j4 install && ldconfig
       - run:
           name: Clone OpenCog
-          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/opencog .
+          #command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/opencog .
+          command: cd /ws && git clone --single-branch --branch merge-opencog-to-singnet https://github.com/stellarspot/opencog.git
+      - run:
+          name: Check current branch
+          command: pwd && git branch
       - run:
           name: CMake Configure
           command: mkdir build && cd build && cmake ..
