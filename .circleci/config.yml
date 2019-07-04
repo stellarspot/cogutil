@@ -84,7 +84,18 @@ jobs:
           command: cd build && make -j4 tests
       - run:
           name: Run tests
-          command: cd build && make -j4 test
+          #command: cd build && make -j4 test
+          command: cd build && ulimit -c unlimited && make -j4 test
+      - run:
+          name: Copy core dumps
+          command: |
+            mkdir -p /tmp/core_dumps
+            ls
+            ls build
+            cp build/core.* /tmp/core_dumps
+          when: on_fail
+      - store_artifacts:
+          path: /tmp/core_dumps
       - run:
           name: Print test log
           command: cat build/tests/Testing/Temporary/LastTest.log
@@ -240,13 +251,13 @@ workflows:
       - atomspace:
           requires:
             - cogutil
-      - moses:
-          requires:
-            - cogutil
-      - as-moses:
-          requires:
-            - cogutil
-            - atomspace
+      #- moses:
+      #    requires:
+      #      - cogutil
+      #- as-moses:
+      #    requires:
+      #      - cogutil
+      #      - atomspace
       - opencog:
           requires:
             - atomspace
