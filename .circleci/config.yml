@@ -80,13 +80,13 @@ jobs:
           name: Build tests
           command: cd build && make -j4 tests
       - run:
-          name: Install AtomSpace
-          command: cd build && make -j4 install && ldconfig
-      - run:
           name: Run tests
           #command: cd build && make -j4 test
           command: cd build && ulimit -c unlimited && make -j4 test
           #command: cd build && ulimit -c unlimited && ARGS='-R UREConfigUTest' make -j4 test
+      - run:
+          name: Install AtomSpace
+          command: cd build && make -j4 install && ldconfig
       - run:
           name: Copy core dumps
           command: |
