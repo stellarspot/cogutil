@@ -66,7 +66,6 @@ jobs:
       - run:
           name: Clone AtomSpace
           # command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/atomspace .
-          #
           command: cd /ws && git clone --single-branch --branch merge-second-way-opencog-to-singnet-fix-tests https://github.com/stellarspot/atomspace.git
           # command: cd /ws && git clone --single-branch --branch merge-atomspace-from-opencog-to-singnet-check-circleci https://github.com/stellarspot/atomspace.git
       - run:
